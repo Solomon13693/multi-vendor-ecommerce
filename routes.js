@@ -1,0 +1,36 @@
+const express = require('express')
+const authRoute = require('./routes/authRoute')
+const adminRoute = require('./routes/adminRoute')
+const userRoute = require('./routes/userRoute')
+const productRoute = require('./routes/productRoute')
+const categoryRoute = require('./routes/categoryRoute')
+const vendorRoute = require('./routes/vendorRoute')
+const reviewRoute = require('./routes/reviewRoute')
+const cartRoute = require('./routes/cartRoute')
+const paystackRoute = require('./routes/paystackRoute')
+const voucherRoute = require('./routes/voucherRoute')
+const stateRoute = require('./routes/stateRoute')
+const cityRoute = require('./routes/cityRoute')
+const addressRoute = require('./routes/addressRoute')
+const { getCheckoutSummary } = require('./controller/checkoutController')
+const { protect, authorize } = require('./middleware/auth');
+const router = express.Router()
+
+router.use('/auth', authRoute)
+router.use('/admin', adminRoute)
+router.use('/user', userRoute)
+router.use('/product', productRoute)
+router.use('/category', categoryRoute)
+router.use('/vendor', vendorRoute)
+router.use('/review', reviewRoute)
+router.use('/cart', cartRoute)
+router.use('/paystack', paystackRoute)
+router.use('/voucher', voucherRoute)
+router.use('/state', stateRoute)
+router.use('/city', cityRoute)
+router.use('/address', addressRoute)
+
+
+router.get('/checkout/summary', protect, authorize('user'), getCheckoutSummary)
+
+module.exports = router
